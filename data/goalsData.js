@@ -10,7 +10,7 @@ const goalsData = {
       imgPath: socialDistanceImage,
       creditsNumber: 100,
       title: "Abstand eingehalten",
-      isActive: true,
+      isActive: false,
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ const goalsData = {
       imgPath: stayHomeImage,
       creditsNumber: 250,
       title: "Kontakt vermieden",
-      isActive: true,
+      isActive: false,
     },
   ],
 };

@@ -10,19 +10,27 @@ const GoalsCard = ({ imgPath, creditsNumber, title, done }) => (
     </View>
     <View style={styles.goalsCoinsWrapper}>
       <Text
-        style={{ color: COLORS.primaryColor, fontSize: 18, fontWeight: "bold" }}
+        style={{
+          color: COLORS.primaryColor,
+          fontSize: 18,
+          fontWeight: "bold",
+        }}
       >
         {creditsNumber}
         <Icons name="server" size={16} color={COLORS.primaryColor} />
       </Text>
     </View>
     <Text
-      style={{ color: COLORS.primaryColor, fontSize: 16, alignSelf: "center" }}
+      style={{
+        color: COLORS.primaryColor,
+        fontSize: 16,
+        alignSelf: "center",
+      }}
     >
       {title}
     </Text>
     <View style={[styles.goalsCheckWrapper, { opacity: done ? 1 : 0 }]}>
-      <Icons name="checkmark" size={24} color={COLORS.primaryColor} />
+      <Icons name="checkmark" size={22} color={COLORS.primaryColor} />
     </View>
   </View>
 );
@@ -61,8 +69,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: COLORS.white,
     padding: 10,
-    width: 44,
-    height: 44,
+    width: 40,
+    height: 40,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

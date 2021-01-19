@@ -1,46 +1,68 @@
 import React, { Component } from "react";
-import { View, TextInput, SafeAreaView, Text, Image } from "react-native";
+import { connect } from "react-redux";
+import { View, TextInput, SafeAreaView, Text } from "react-native";
+import {
+  ScrollView,
+  TouchableNativeFeedback,
+} from "react-native-gesture-handler";
 import Icons from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
 import styles from "../styles/globalStyle";
-
-import goalsData from "../data/goalsData";
 
 // components
 import GoalsCard from "../components/goalsCard";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      goalsData: goalsData,
-      doneActivities: 3,
-    };
+  componentDidMount() {
+    this.countActiveGoals();
+    this.renderGoalsCards();
   }
 
-  countActiveElements = () => {
-    let elem = this.state.goalsData.data;
-    let counter = 0;
-    elem.forEach((element) => {
+  countActiveGoals() {
+    counter = 0;
+
+    this.props.goalsData.forEach((element) => {
       if (element.isActive == true) {
         counter++;
       }
     });
 
-    this.setState({
-      doneActivities: (this.state.doneActivities = counter),
-    });
-
-    console.log(counter);
-  };
-
-  componentDidMount() {
-    this.countActiveElements();
+    this.props.setGoalsDataActiveNumber(counter);
   }
+
+  toggleActiveCard(key) {
+    let copyGoalsData = [...this.props.goalsData];
+    let index = copyGoalsData.findIndex((data) => data.id == key);
+
+    if (copyGoalsData[index].isActive == false) {
+      copyGoalsData[index].isActive = true;
+    } else {
+      copyGoalsData[index].isActive = false;
+    }
+
+    this.props.setGoalsData(copyGoalsData);
+    this.countActiveGoals();
+  }
+
+  renderGoalsCards = () =>
+    this.props.goalsData.map((data) => (
+      <TouchableNativeFeedback
+        key={data.id}
+        onPress={() => this.toggleActiveCard(data.id)}
+      >
+        <GoalsCard
+          id={data.id}
+          imgPath={data.imgPath}
+          creditsNumber={data.creditsNumber}
+          title={data.title}
+          done={data.isActive}
+        />
+      </TouchableNativeFeedback>
+    ));
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.textInputWrapper}>
           <TextInput
             style={styles.textInput}
@@ -65,7 +87,8 @@ class Home extends Component {
           >
             <Text style={styles.subHeadterTitle}>Heutige Ziele</Text>
             <Text style={styles.subHeadterTitle}>
-              {this.state.doneActivities} von {this.state.goalsData.data.length}
+              {this.props.goalsDataActiveNumber} von{" "}
+              {this.props.goalsData.length}
             </Text>
           </View>
           <View
@@ -75,20 +98,31 @@ class Home extends Component {
               justifyContent: "space-between",
             }}
           >
-            {this.state.goalsData.data.map((data) => (
-              <GoalsCard
-                key={data.id}
-                imgPath={data.imgPath}
-                creditsNumber={data.creditsNumber}
-                title={data.title}
-                done={data.isActive}
-              />
-            ))}
+            {this.renderGoalsCards()}
           </View>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    goalsData: state.goalsData,
+    goalsDataActiveNumber: state.goalsDataActiveNumber,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setGoalsDataActiveNumber: (goalsDataActiveNumber) =>
+      dispatch({
+        type: "SET_GOALSDATA_ACTIVE_NUMBER",
+        goalsDataActiveNumber: goalsDataActiveNumber,
+      }),
+    setGoalsData: (goalsData) =>
+      dispatch({ type: "SET_GOALSDATA", goalsData: goalsData }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

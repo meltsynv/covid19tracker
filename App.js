@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import NestedNavigation from "./navigation/NestedNavigation";
 
 import { Provider } from "react-redux";
@@ -7,10 +7,14 @@ import rootReducer from "./redux/rootReducer";
 
 const store = createStore(rootReducer);
 
-export default function App() {
-  return (
-    <Provider store={store}>
-      <NestedNavigation />
-    </Provider>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <NestedNavigation />
+      </Provider>
+    );
+  }
 }
+
+export default App;
