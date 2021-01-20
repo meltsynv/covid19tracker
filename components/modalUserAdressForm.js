@@ -7,23 +7,27 @@ import Icons from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
 import { TextInput } from "react-native-gesture-handler";
 
-const CustomModal = ({ setActive, ...props }) => {
-  const [isModalVisible, setModalVisible] = useState(setActive);
+const ModalUserAdressForm = ({ ...props }) => {
+  const [isModalVisible, setModalVisible] = useState(true);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const [inputUserName, onChangeUserName] = React.useState(" ");
-  const [inputMail, onChangeMail] = React.useState(" ");
-  const [inputPhone, onChangePhone] = React.useState(" ");
+  const [inputUserStreet, onChangeStreet] = React.useState(" ");
+  const [inputUserHomeNumber, onChangeHomeNumber] = React.useState(" ");
+  const [inputUserZip, onChangeZip] = React.useState(" ");
+  const [inputUserCity, onChangeCity] = React.useState(" ");
+  const [inputUserCountry, onChangeCountry] = React.useState(" ");
 
   const handleInput = () => {
     let copyUserData = [...props.userData];
 
-    copyUserData[0].userName = inputUserName;
-    copyUserData[0].mail = inputMail;
-    copyUserData[0].tel = inputPhone;
+    copyUserData[0].street = inputUserStreet;
+    copyUserData[0].homeNumber = inputUserHomeNumber;
+    copyUserData[0].zip = inputUserZip;
+    copyUserData[0].city = inputUserCity;
+    copyUserData[0].country = inputUserCountry;
 
     props.setUserData(copyUserData);
 
@@ -64,33 +68,59 @@ const CustomModal = ({ setActive, ...props }) => {
               marginBottom: 20,
             }}
           >
-            Angaben zur Person
+            Addresse
           </Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View style={[styles.textImput, { flex: 2 }]}>
+              <TextInput
+                keyboardType={"default"}
+                style={{ color: "#111111" }}
+                placeholder={props.userData[0].street}
+                placeholderTextColor={"#aeaeae"}
+                onChangeText={(val) => onChangeStreet(val)}
+              />
+            </View>
+            <View style={[styles.textImput, { flex: 1, marginLeft: 10 }]}>
+              <TextInput
+                keyboardType={"number-pad"}
+                style={{ color: "#111111" }}
+                placeholder={props.userData[0].homeNumber}
+                placeholderTextColor={"#aeaeae"}
+                onChangeText={(val) => onChangeHomeNumber(val)}
+              />
+            </View>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View style={[styles.textImput, { flex: 1 }]}>
+              <TextInput
+                keyboardType={"number-pad"}
+                style={{ color: "#111111" }}
+                placeholder={props.userData[0].zip}
+                placeholderTextColor={"#aeaeae"}
+                onChangeText={(val) => onChangeZip(val)}
+              />
+            </View>
+            <View style={[styles.textImput, { flex: 2, marginLeft: 10 }]}>
+              <TextInput
+                keyboardType={"default"}
+                style={{ color: "#111111" }}
+                placeholder={props.userData[0].city}
+                placeholderTextColor={"#aeaeae"}
+                onChangeText={(val) => onChangeCity(val)}
+              />
+            </View>
+          </View>
           <View style={styles.textImput}>
             <TextInput
               keyboardType={"default"}
               style={{ color: "#111111" }}
-              placeholder={props.userData[0].userName}
+              placeholder={props.userData[0].country}
               placeholderTextColor={"#aeaeae"}
-              onChangeText={(val) => onChangeUserName(val)}
-            />
-          </View>
-          <View style={styles.textImput}>
-            <TextInput
-              keyboardType={"email-address"}
-              style={{ color: "#111111" }}
-              placeholder={props.userData[0].mail}
-              placeholderTextColor={"#aeaeae"}
-              onChangeText={(val) => onChangeMail(val)}
-            />
-          </View>
-          <View style={styles.textImput}>
-            <TextInput
-              keyboardType={"number-pad"}
-              style={{ color: "#111111" }}
-              placeholder={props.userData[0].tel}
-              placeholderTextColor={"#aeaeae"}
-              onChangeText={(val) => onChangePhone(val)}
+              onChangeText={(val) => onChangeCountry(val)}
             />
           </View>
           <View
@@ -135,4 +165,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ModalUserAdressForm);

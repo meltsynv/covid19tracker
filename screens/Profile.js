@@ -8,26 +8,12 @@ import {
 import Icons from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
 import styles from "../styles/globalStyle";
+
+// components
 import ModalUpdateUser from "../components/modalUserForm";
+import ModalUserAdressForm from "../components/modalUserAdressForm";
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      setModalUserActive: false,
-    };
-
-    this.handleModal = this.handleModal.bind(this);
-  }
-
-  handleModal() {
-    this.setState({
-      setModalUserActive: (this.state.setModalUserActive = true),
-    });
-
-    console.log(this.state.setModalUserActive);
-  }
-
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -73,19 +59,8 @@ class Profile extends Component {
             <Text>{this.props.userData[0].mail}</Text>
             <Text>+{this.props.userData[0].tel}</Text>
           </View>
-          <TouchableNativeFeedback
-            style={styles.touchableButton}
-            onPress={this.handleModal}
-          >
-            <Text
-              style={{ color: COLORS.white, fontSize: 16, fontWeight: "bold" }}
-            >
-              Editieren
-            </Text>
-            <Icons name="create" size={20} color={COLORS.white} />
-          </TouchableNativeFeedback>
+          <ModalUpdateUser />
         </View>
-        {<ModalUpdateUser setActive={this.state.setModalUserActive} />}
         <View
           style={{
             flexDirection: "column",
@@ -111,14 +86,7 @@ class Profile extends Component {
             </Text>
             <Text>{this.props.userData[0].country}</Text>
           </View>
-          <TouchableNativeFeedback style={styles.touchableButton}>
-            <Text
-              style={{ color: COLORS.white, fontSize: 16, fontWeight: "bold" }}
-            >
-              Editieren
-            </Text>
-            <Icons name="create" size={20} color={COLORS.white} />
-          </TouchableNativeFeedback>
+          <ModalUserAdressForm />
         </View>
       </ScrollView>
     );
