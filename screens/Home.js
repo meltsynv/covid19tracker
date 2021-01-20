@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, TextInput, SafeAreaView, Text } from "react-native";
+import { View, TextInput, Text } from "react-native";
 import {
   ScrollView,
   TouchableNativeFeedback,
@@ -11,6 +11,7 @@ import styles from "../styles/globalStyle";
 
 // components
 import GoalsCard from "../components/goalsCard";
+import LinkCard from "../components/linkCard";
 
 class Home extends Component {
   componentDidMount() {
@@ -100,6 +101,9 @@ class Home extends Component {
           >
             {this.renderGoalsCards()}
           </View>
+        </View>
+        <View style={{ marginTop: 30, marginBottom: 30 }}>
+          <LinkCard linkTitle="Neue Maßnahmen" linkSource="land.nrw" />
         </View>
       </ScrollView>
     );

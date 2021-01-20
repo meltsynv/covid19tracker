@@ -1,12 +1,19 @@
 import goalsData from "../data/goalsData";
+import userData from "../data/userData";
 
 const initState = {
+  userData: userData.data,
   goalsData: goalsData.data,
   goalsDataActiveNumber: 0,
 };
 
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
+    case "SET_USERDATA":
+      return {
+        ...state,
+        userData: (state.userData = action.userData),
+      };
     case "SET_GOALSDATA":
       return {
         ...state,

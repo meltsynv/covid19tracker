@@ -1,23 +1,35 @@
-import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { View, TextInput, Text } from "react-native";
+import {
+  ScrollView,
+  TouchableNativeFeedback,
+} from "react-native-gesture-handler";
+import Icons from "react-native-vector-icons/Ionicons";
+import { COLORS } from "../styles/colors";
+import styles from "../styles/globalStyle";
 
-const Notification = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text>Notification</Text>
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-      <Button title="Go Back" onPress={() => navigation.goBack()} />
-    </View>
-  );
+// components
+import LinkCard from "../components/linkCard";
+
+class Notification extends Component {
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={{ marginBottom: 30 }}>
+          <LinkCard linkTitle="Neue Maßnahmen" linkSource="land.nrw" />
+        </View>
+      </ScrollView>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {};
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
 
-export default Notification;
+export default connect(mapStateToProps, mapDispatchToProps)(Notification);

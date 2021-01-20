@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 import { COLORS } from "./colors";
 
 const styles = StyleSheet.create({
@@ -26,6 +27,20 @@ const styles = StyleSheet.create({
     color: COLORS.primaryColor,
     fontWeight: "bold",
     fontSize: 18,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: COLORS.primaryColor,
+  },
+  touchableButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: COLORS.primaryColor,
+    padding: 15,
+    borderRadius: 5,
+    width: Dimensions.get("window").width - 100,
   },
 });
 
