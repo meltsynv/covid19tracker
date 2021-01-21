@@ -1,9 +1,11 @@
 import goalsData from "../data/goalsData";
+import shopData from "../data/shopData";
 import userData from "../data/userData";
 
 const initState = {
   userData: userData.data,
   goalsData: goalsData.data,
+  shopData: shopData.data,
   goalsDataActiveNumber: 0,
 };
 
@@ -13,6 +15,11 @@ const rootReducer = (state = initState, action) => {
       return {
         ...state,
         userData: (state.userData = action.userData),
+      };
+    case "SET_SHOPDATA":
+      return {
+        ...state,
+        shopData: (state.shopData = action.shopData),
       };
     case "SET_GOALSDATA":
       return {

@@ -75,15 +75,19 @@ const Home = ({ ...props }) => {
 
   const toggleActiveCard = (key) => {
     let copyGoalsData = [...props.goalsData];
+    let copyUserData = [...props.userData];
     let index = copyGoalsData.findIndex((data) => data.id == key);
 
     if (copyGoalsData[index].isActive == false) {
       copyGoalsData[index].isActive = true;
+      copyUserData[0].shopCredits += copyGoalsData[index].creditsNumber;
     } else {
       copyGoalsData[index].isActive = false;
+      copyUserData[0].shopCredits -= copyGoalsData[index].creditsNumber;
     }
 
     props.setGoalsData(copyGoalsData);
+    props.setUserData(copyUserData);
     countActiveGoals();
   };
 
@@ -186,6 +190,7 @@ const mapStateToProps = (state) => {
   return {
     goalsData: state.goalsData,
     goalsDataActiveNumber: state.goalsDataActiveNumber,
+    userData: state.userData,
   };
 };
 
@@ -198,6 +203,8 @@ const mapDispatchToProps = (dispatch) => {
       }),
     setGoalsData: (goalsData) =>
       dispatch({ type: "SET_GOALSDATA", goalsData: goalsData }),
+    setUserData: (userData) =>
+      dispatch({ type: "SET_USERDATA", userData: userData }),
   };
 };
 

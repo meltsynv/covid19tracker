@@ -11,7 +11,7 @@ const userData = {
       zip: "46117",
       city: "Bottrop",
       country: "Deutschland",
-      giftCredits: 200,
+      shopCredits: 700,
     },
   ],
 };
