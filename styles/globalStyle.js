@@ -11,11 +11,9 @@ const styles = StyleSheet.create({
   textInputWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     borderColor: COLORS.secondaryColor,
     borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 20,
     paddingLeft: 20,
     borderRadius: 5,
   },

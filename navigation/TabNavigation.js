@@ -14,7 +14,7 @@ const Tab = createMaterialBottomTabNavigator();
 const MainNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Profile"
+      initialRouteName="Home"
       activeColor={COLORS.secondaryColor}
       style={{ backgroundColor: COLORS.secondaryColor }}
     >

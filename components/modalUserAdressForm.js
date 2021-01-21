@@ -8,7 +8,7 @@ import { COLORS } from "../styles/colors";
 import { TextInput } from "react-native-gesture-handler";
 
 const ModalUserAdressForm = ({ ...props }) => {
-  const [isModalVisible, setModalVisible] = useState(true);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
