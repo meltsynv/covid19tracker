@@ -31,6 +31,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: COLORS.primaryColor,
   },
+  h4: {
+    fontSize: 14,
+    color: COLORS.primaryColor,
+  },
+  p: {
+    fontSize: 14,
+    color: "#7F7F7F",
+    lineHeight: 24,
+  },
   touchableButton: {
     flexDirection: "row",
     justifyContent: "space-between",

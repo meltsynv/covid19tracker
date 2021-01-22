@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NestedNavigation from "./navigation/NestedNavigation";
+import "react-native-gesture-handler";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";

@@ -1,5 +1,4 @@
 import React from "react";
-import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
@@ -98,7 +97,7 @@ const ProfileStackNav = ({ navigation }) => (
       name="Profile"
       component={Profile}
       options={{
-        title: "John Doe",
+        title: "Profile",
         headerLeft: () => (
           <Icon.Button
             name="menu"

@@ -180,7 +180,11 @@ const Home = ({ ...props }) => {
         {renderGoalsCards()}
       </View>
       <View style={{ marginTop: 30, marginBottom: 30 }}>
-        <LinkCard linkTitle="Neue Maßnahmen" linkSource="land.nrw" />
+        <LinkCard
+          linkTitle="Neue Maßnahmen"
+          linkSource="land.nrw"
+          link="Notification"
+        />
       </View>
     </ScrollView>
   );

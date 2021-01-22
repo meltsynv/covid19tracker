@@ -14,7 +14,7 @@ const Tab = createMaterialBottomTabNavigator();
 const MainNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Gift"
+      initialRouteName="Notification"
       activeColor={COLORS.secondaryColor}
       style={{ backgroundColor: COLORS.secondaryColor }}
     >

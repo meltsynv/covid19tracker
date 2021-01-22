@@ -1,42 +1,50 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 import Icons from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
 
-const LinkCard = ({ linkTitle, linkSource }) => (
-  <View
-    style={{ backgroundColor: COLORS.bgColor, padding: 10, borderRadius: 5 }}
-  >
+const LinkCard = ({ linkTitle, linkSource, link }) => {
+  const navigation = useNavigation();
+
+  return (
     <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+      style={{ backgroundColor: COLORS.bgColor, padding: 10, borderRadius: 5 }}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Icons
-          name="earth"
-          size={14}
-          color={COLORS.primaryColor}
-          style={{ paddingRight: 5 }}
-        />
-        <Text style={styles.linkSource}>{linkSource}</Text>
-      </View>
-      <TouchableNativeFeedback style={styles.linkButton}>
-        <View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Icons
-            name="arrow-forward-outline"
-            size={16}
+            name="earth"
+            size={14}
             color={COLORS.primaryColor}
+            style={{ paddingRight: 5 }}
           />
+          <Text style={styles.linkSource}>{linkSource}</Text>
         </View>
-      </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          style={styles.linkButton}
+          onPress={() => navigation.navigate(link)}
+        >
+          <View>
+            <Icons
+              name="arrow-forward-outline"
+              size={16}
+              color={COLORS.primaryColor}
+            />
+          </View>
+        </TouchableNativeFeedback>
+      </View>
+      <Text style={styles.linkTitle}>{linkTitle}</Text>
     </View>
-    <Text style={styles.linkTitle}>{linkTitle}</Text>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   linkSource: {
