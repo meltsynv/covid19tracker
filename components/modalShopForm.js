@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  Image,
   Alert,
 } from "react-native";
 import {
@@ -18,6 +19,9 @@ import { COLORS } from "../styles/colors";
 
 // components
 import ShopMiniCard from "./shopMiniCard";
+
+// images
+import delivery from "../assets/images/delivery.png";
 
 const ModalShopForm = ({ active, ...props }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -114,11 +118,9 @@ const ModalShopForm = ({ active, ...props }) => {
               >{`${props.userData[0].zip} ${props.userData[0].city}`}</Text>
               <Text style={styles.p}>{props.userData[0].country}</Text>
             </View>
-          </View>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
-            <Button title="fertig" onPress={alertMessage} />
+            <View style={{ alignItems: "center", marginTop: 30 }}>
+              <Image source={delivery} />
+            </View>
           </View>
         </View>
       </Modal>
