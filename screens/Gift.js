@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { View, Text } from "react-native";
 import {
@@ -11,8 +11,13 @@ import styles from "../styles/globalStyle";
 
 // components
 import ShopCard from "../components/shopCard";
+import ModalShopForm from "../components/modalShopForm";
+import ShopTinyCard from "../components/shopTinyCard";
 
 const Gift = ({ ...props }) => {
+  const [activeShopButton, setShopButton] = useState(true);
+  const [activeTinyShopSection, setTinyShopSection] = useState(false);
+
   const toggleActiveCard = (key) => {
     let copyshopData = [...props.shopData];
     let copyUserData = [...props.userData];
@@ -21,11 +26,10 @@ const Gift = ({ ...props }) => {
 
     if (copyshopData[index].isActive == false) {
       copyshopData[index].isActive = true;
-      if (!(copyUserData[0].shopCredits <= 0)) {
-        copyUserData[0].shopCredits -= copyshopData[index].creditsNumber;
-      }
+      copyUserData[0].shopCredits -= copyshopData[index].creditsNumber;
     } else {
       copyshopData[index].isActive = false;
+      copyUserData[0].shopCredits += copyshopData[index].creditsNumber;
     }
 
     if (copyUserData[0].shopCredits <= 0) {
@@ -34,6 +38,51 @@ const Gift = ({ ...props }) => {
 
     props.setUserData(copyUserData);
     props.setshopData(copyshopData);
+
+    toggleShopCard();
+  };
+
+  const toggleShopCard = () => {
+    let counter = 0;
+    props.shopData.map((data) => {
+      if (data.isActive == true) {
+        counter++;
+      }
+    });
+
+    if (counter >= 1) {
+      setShopButton(false);
+      setTinyShopSection(true);
+    } else {
+      setShopButton(true);
+      setTinyShopSection(false);
+    }
+  };
+
+  const resetCards = () => {
+    let copyshopData = [...props.shopData];
+    let copyUserData = [...props.userData];
+
+    let array = [];
+
+    props.shopData
+      .filter((data) => data.isActive == true)
+      .map((data) => {
+        array = array.concat(data.id);
+      });
+
+    array.flatMap((elem) => {
+      let index = copyshopData.findIndex((data) => data.id == elem);
+      copyshopData[index].isActive = false;
+      copyUserData[0].shopCredits += copyshopData[index].creditsNumber;
+    });
+
+    // console.log(array);
+    // console.log(props.shopData);
+    props.setUserData(copyUserData);
+    props.setshopData(copyshopData);
+
+    toggleShopCard();
   };
 
   const rendershopCards = () =>
@@ -57,14 +106,20 @@ const Gift = ({ ...props }) => {
         />
       </TouchableNativeFeedback>
     ));
+
+  const rendershoptinyCard = () =>
+    props.shopData
+      .filter((data) => data.isActive == true)
+      .map((data) => <ShopTinyCard key={data.id} imgPath={data.imgPath} />);
+
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View
         style={{
           flexDirection: "row",
           alignSelf: "center",
           alignItems: "center",
-          marginBottom: 30,
+          paddingBottom: 15,
         }}
       >
         <Icons name="server" size={18} color={COLORS.primaryColor} />
@@ -72,16 +127,43 @@ const Gift = ({ ...props }) => {
           {props.userData[0].shopCredits} Credits
         </Text>
       </View>
+      <ScrollView>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          {rendershopCards()}
+        </View>
+      </ScrollView>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          flexWrap: "wrap",
+          alignItems: "center",
+          display: activeTinyShopSection ? "flex" : "none",
         }}
       >
-        {rendershopCards()}
+        <ScrollView horizontal={true}>{rendershoptinyCard()}</ScrollView>
+        <TouchableNativeFeedback
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: 44,
+            height: 44,
+            backgroundColor: COLORS.bgColor,
+          }}
+          onPress={() => resetCards()}
+        >
+          <Icons name="trash" size={24} color={COLORS.primaryColor} />
+        </TouchableNativeFeedback>
       </View>
-    </ScrollView>
+      <View style={{ alignItems: "center", paddingTop: 15 }}>
+        <ModalShopForm active={activeShopButton} />
+      </View>
+    </View>
   );
 };
 

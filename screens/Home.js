@@ -150,11 +150,11 @@ const Home = ({ ...props }) => {
         <ApiCard title="Population" value={Number(population)} />
         <ApiCard
           title="Cases / Population"
-          value={Number(cases_per_population).toFixed(3) + "%"}
+          value={Number(cases_per_population).toFixed(2) + "%"}
         />
         <ApiCard
           title="Death rate"
-          value={Number(death_rate).toFixed(3) + "%"}
+          value={Number(death_rate).toFixed(2) + "%"}
         />
       </View>
       <View
