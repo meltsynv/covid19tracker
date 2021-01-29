@@ -1,6 +1,6 @@
-import goalsData from "../data/goalsData";
-import shopData from "../data/shopData";
-import userData from "../data/userData";
+import goalsData from "../backend/goalsData";
+import shopData from "../backend/shopData";
+import userData from "../backend/userData";
 
 const initState = {
   userData: userData.data,
