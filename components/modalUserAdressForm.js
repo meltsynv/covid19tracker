@@ -14,11 +14,21 @@ const ModalUserAdressForm = ({ ...props }) => {
     setModalVisible(!isModalVisible);
   };
 
-  const [inputUserStreet, onChangeStreet] = React.useState(" ");
-  const [inputUserHomeNumber, onChangeHomeNumber] = React.useState(" ");
-  const [inputUserZip, onChangeZip] = React.useState(" ");
-  const [inputUserCity, onChangeCity] = React.useState(" ");
-  const [inputUserCountry, onChangeCountry] = React.useState(" ");
+  const [inputUserStreet, onChangeStreet] = React.useState(
+    `${props.userData[0].street}`
+  );
+  const [inputUserHomeNumber, onChangeHomeNumber] = React.useState(
+    `${props.userData[0].homeNumber}`
+  );
+  const [inputUserZip, onChangeZip] = React.useState(
+    `${props.userData[0].zip}`
+  );
+  const [inputUserCity, onChangeCity] = React.useState(
+    `${props.userData[0].city}`
+  );
+  const [inputUserCountry, onChangeCountry] = React.useState(
+    `${props.userData[0].country}`
+  );
 
   const handleInput = () => {
     let copyUserData = [...props.userData];

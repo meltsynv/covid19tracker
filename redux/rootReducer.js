@@ -7,10 +7,16 @@ const initState = {
   goalsData: goalsData.data,
   shopData: shopData.data,
   goalsDataActiveNumber: 0,
+  loginState: true,
 };
 
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
+    case "SET_LOGIN":
+      return {
+        ...state,
+        loginState: (state.loginState = action.loginState),
+      };
     case "SET_USERDATA":
       return {
         ...state,

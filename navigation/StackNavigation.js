@@ -8,6 +8,8 @@ import Home from "../screens/Home";
 import Notification from "../screens/Notification";
 import Gift from "../screens/Gift";
 import Profile from "../screens/Profile";
+import Impressum from "../screens/Impressum";
+import Datenschutz from "../screens/Datenschutz";
 
 const navHeaderStyle = {
   headerStyle: {
@@ -113,4 +115,57 @@ const ProfileStackNav = ({ navigation }) => (
   </ProfileStack.Navigator>
 );
 
-export { HomeStackNav, NotificationStackNav, GiftStackNav, ProfileStackNav };
+const ImpressumStack = createStackNavigator();
+const ImpressumStackNav = ({ navigation }) => (
+  <ImpressumStack.Navigator screenOptions={navHeaderStyle}>
+    <ImpressumStack.Screen
+      name="Impressum"
+      component={Impressum}
+      options={{
+        title: "Impressum",
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={24}
+            backgroundColor={COLORS.secondaryColor}
+            style={{ paddingLeft: 16 }}
+            color={COLORS.primaryColor}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+  </ImpressumStack.Navigator>
+);
+
+const DatenschutzStack = createStackNavigator();
+const DatenschutzStackNav = ({ navigation }) => (
+  <DatenschutzStack.Navigator screenOptions={navHeaderStyle}>
+    <DatenschutzStack.Screen
+      name="Datenschutz"
+      component={Datenschutz}
+      options={{
+        title: "Datenschutzerklärung",
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={24}
+            backgroundColor={COLORS.secondaryColor}
+            style={{ paddingLeft: 16 }}
+            color={COLORS.primaryColor}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+  </DatenschutzStack.Navigator>
+);
+
+export {
+  HomeStackNav,
+  NotificationStackNav,
+  GiftStackNav,
+  ProfileStackNav,
+  ImpressumStackNav,
+  DatenschutzStackNav,
+};

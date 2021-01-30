@@ -14,9 +14,13 @@ const CustomModal = ({ setActive, ...props }) => {
     setModalVisible(!isModalVisible);
   };
 
-  const [inputUserName, onChangeUserName] = React.useState(" ");
-  const [inputMail, onChangeMail] = React.useState(" ");
-  const [inputPhone, onChangePhone] = React.useState(" ");
+  const [inputUserName, onChangeUserName] = React.useState(
+    `${props.userData[0].userName}`
+  );
+  const [inputMail, onChangeMail] = React.useState(`${props.userData[0].mail}`);
+  const [inputPhone, onChangePhone] = React.useState(
+    `${props.userData[0].tel}`
+  );
 
   const handleInput = () => {
     let copyUserData = [...props.userData];
