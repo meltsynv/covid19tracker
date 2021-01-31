@@ -8,9 +8,9 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FAIcons from "react-native-vector-icons/FontAwesome";
-import { createStackNavigator } from "@react-navigation/stack";
 import { ImpressumStackNav, DatenschutzStackNav } from "./StackNavigation";
 import MainNavigation from "./TabNavigation";
 import { COLORS } from "../styles/colors";

@@ -3,7 +3,7 @@ const userData = {
     {
       userImage: " ",
       userName: "John Doe",
-      mail: "johndoe@mail.de",
+      mail: "jdoe@mail.de",
       tel: "49123456789",
       password: "123",
       street: "Mustermann Str",

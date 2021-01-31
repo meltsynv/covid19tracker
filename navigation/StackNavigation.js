@@ -1,4 +1,5 @@
 import React from "react";
+import { View, Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
@@ -24,13 +25,13 @@ const navHeaderStyle = {
 };
 
 const HomeStack = createStackNavigator();
-const HomeStackNav = ({ navigation }) => (
+const HomeStackNav = ({ navigation, title }) => (
   <HomeStack.Navigator screenOptions={navHeaderStyle}>
     <HomeStack.Screen
       name="Home"
       component={Home}
       options={{
-        title: "Willkommen, John Doe",
+        title: `Willkommen ${title}`,
         headerLeft: () => (
           <Icon.Button
             name="menu"
@@ -70,27 +71,73 @@ const NotificationStackNav = ({ navigation }) => (
 );
 
 const GiftStack = createStackNavigator();
-const GiftStackNav = ({ navigation }) => (
-  <GiftStack.Navigator screenOptions={navHeaderStyle}>
-    <GiftStack.Screen
-      name="Gift"
-      component={Gift}
-      options={{
-        title: "Deine erreichten Ziele",
-        headerLeft: () => (
-          <Icon.Button
-            name="menu"
-            size={24}
-            backgroundColor={COLORS.secondaryColor}
-            style={{ paddingLeft: 16 }}
-            color={COLORS.primaryColor}
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-      }}
-    />
-  </GiftStack.Navigator>
-);
+const GiftStackNav = ({ navigation, credits, shopData }) => {
+  const activeShopItemsCounter = () => {
+    let counter = 0;
+    shopData.forEach((element) => {
+      if (element.isActive == true) {
+        counter++;
+      }
+    });
+    return counter;
+  };
+
+  return (
+    <GiftStack.Navigator screenOptions={navHeaderStyle}>
+      <GiftStack.Screen
+        name="Gift"
+        component={Gift}
+        options={{
+          title: `Shop Credits ${credits}`,
+          headerLeft: () => (
+            <Icon.Button
+              name="menu"
+              size={24}
+              backgroundColor={COLORS.secondaryColor}
+              style={{ paddingLeft: 16 }}
+              color={COLORS.primaryColor}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
+          headerRight: () => (
+            <View style={{ flexDirection: "row" }}>
+              <Icon.Button
+                name="basket"
+                size={24}
+                backgroundColor={COLORS.secondaryColor}
+                style={{ paddingRight: 16 }}
+                color={COLORS.primaryColor}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  right: 14,
+                  top: 0,
+                  backgroundColor: COLORS.primaryColor,
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderColor: COLORS.secondaryColor,
+                  borderWidth: 3,
+                }}
+              >
+                <Text
+                  style={{
+                    color: COLORS.secondaryColor,
+                  }}
+                >
+                  {activeShopItemsCounter()}
+                </Text>
+              </View>
+            </View>
+          ),
+        }}
+      />
+    </GiftStack.Navigator>
+  );
+};
 
 const ProfileStack = createStackNavigator();
 const ProfileStackNav = ({ navigation }) => (

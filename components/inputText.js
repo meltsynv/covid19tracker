@@ -2,7 +2,12 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS } from "../styles/colors";
 
-const CustomInputField = ({ text, holdertext }) => {
+const CustomInputField = ({
+  text,
+  holdertext,
+  changeTextHandler,
+  secureText,
+}) => {
   return (
     <View style={styles.inputContainer}>
       <Text style={styles.text}>{text}</Text>
@@ -10,6 +15,8 @@ const CustomInputField = ({ text, holdertext }) => {
         style={styles.input}
         placeholder={holdertext}
         placeholderTextColor={COLORS.secondaryColor}
+        onChangeText={(text) => changeTextHandler(text)}
+        secureTextEntry={secureText}
       />
     </View>
   );
@@ -20,7 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   text: {
-    fontSize: 10,
+    fontSize: 12,
     color: COLORS.primaryColor,
     marginBottom: 5,
   },

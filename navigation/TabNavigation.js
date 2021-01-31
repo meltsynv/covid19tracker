@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
@@ -11,7 +12,7 @@ import { COLORS } from "../styles/colors";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const MainNavigation = () => {
+const MainNavigation = ({ userData, shopData, ...props }) => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -20,7 +21,9 @@ const MainNavigation = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeStackNav}
+        children={() => (
+          <HomeStackNav title={userData[0].userName} {...props} />
+        )}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -40,7 +43,13 @@ const MainNavigation = () => {
       />
       <Tab.Screen
         name="Gift"
-        component={GiftStackNav}
+        children={() => (
+          <GiftStackNav
+            credits={userData[0].shopCredits}
+            shopData={shopData}
+            {...props}
+          />
+        )}
         options={{
           tabBarLabel: "Gift",
           tabBarIcon: ({ color }) => (
@@ -62,4 +71,15 @@ const MainNavigation = () => {
   );
 };
 
-export default MainNavigation;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.userData,
+    shopData: state.shopData,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavigation);

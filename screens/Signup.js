@@ -1,16 +1,11 @@
 import React from "react";
-import { View, Text, Button, StatusBar } from "react-native";
+import { View, Text, Button } from "react-native";
 import CustomInputField from "../components/inputText";
 import styles from "../styles/globalStyle";
 
 const SignUpPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#b3e6ff"
-        barStyle="dark-content"
-        hidden={false}
-      />
       <View style={{ flex: 4, justifyContent: "space-between" }}>
         <View>
           <CustomInputField text="Full Name" holdertext="John Doe" />
