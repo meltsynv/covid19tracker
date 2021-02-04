@@ -9,6 +9,8 @@ const Login = ({ navigation, userData }) => {
   const [loginPassword, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState(false);
 
+  // proof the login data with the suer data
+  // if success go to "Onboarding" else show error message
   const handleLogin = () => {
     if (
       loginPassword.loginPassword == userData[0].password &&

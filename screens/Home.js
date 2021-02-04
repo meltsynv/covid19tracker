@@ -17,11 +17,14 @@ import ApiCard from "../components/apiCard";
 import ErrorMessage from "../components/errorMessage";
 
 const Home = ({ ...props }) => {
+  //local state datas
   const [searchText, onChangeSearchText] = React.useState("");
   const [jsonAPIdata, setAPIdata] = React.useState([]);
   const [isAPICardActive, setAPICardActive] = React.useState(false);
   const [flasMessage, setMessage] = React.useState(false);
 
+  // api call to fetch the data, and print a error message
+  // if the jsondata is empty
   const APIcall = () => {
     API(searchText).then(function (jsonData) {
       let data = [];
@@ -42,6 +45,7 @@ const Home = ({ ...props }) => {
     }
   };
 
+  // count all active cards an set the Sumnumber
   const countActiveGoals = () => {
     counter = 0;
 
@@ -54,6 +58,8 @@ const Home = ({ ...props }) => {
     props.setGoalsDataActiveNumber(counter);
   };
 
+  // update the state of the goals card with gifen index
+  // and upgrade or decrease users credit Number
   const toggleActiveCard = (key) => {
     let copyGoalsData = [...props.goalsData];
     let copyUserData = [...props.userData];
@@ -88,6 +94,8 @@ const Home = ({ ...props }) => {
       </TouchableNativeFeedback>
     ));
 
+  // if city is not given, render message to put i an city
+  // if city or jsonData is given render the ApiCards
   const renderAPICards = () => {
     if (
       isAPICardActive &&
@@ -205,6 +213,7 @@ const Home = ({ ...props }) => {
   );
 };
 
+// take infos from the global state (store) and use it as props
 const mapStateToProps = (state) => {
   return {
     goalsData: state.goalsData,
@@ -213,6 +222,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+// dispatch some states, to update the store with given data
 const mapDispatchToProps = (dispatch) => {
   return {
     setGoalsDataActiveNumber: (goalsDataActiveNumber) =>
@@ -227,4 +237,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// connect redux with this function to use the store
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

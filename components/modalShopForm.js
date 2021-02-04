@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import {
-  Button,
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-  Alert,
-} from "react-native";
+import { Text, View, StyleSheet, Dimensions, Image, Alert } from "react-native";
 import {
   ScrollView,
   TouchableNativeFeedback,

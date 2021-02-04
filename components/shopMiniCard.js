@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Dimensions,
-  ImageBackground,
-} from "react-native";
-import Icons from "react-native-vector-icons/Ionicons";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { COLORS } from "../styles/colors";
 
 const ShopMiniCard = ({ imgPath, creditsNumber, title, done }) => (

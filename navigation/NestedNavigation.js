@@ -23,6 +23,7 @@ import Signup from "../screens/Signup";
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
+// switch between the main app and the login section
 const NestedNavigation = ({ setLogin, userData, ...props }) => {
   return (
     <NavigationContainer>
@@ -34,6 +35,7 @@ const NestedNavigation = ({ setLogin, userData, ...props }) => {
         </Stack.Navigator>
       ) : (
         <Drawer.Navigator
+          // custom style for the drawer nav
           drawerContent={(props) => {
             return (
               <View style={{ flex: 1 }}>

@@ -22,6 +22,7 @@ const CustomModal = ({ setActive, ...props }) => {
     `${props.userData[0].tel}`
   );
 
+  // copy the input data in the state and update it
   const handleInput = () => {
     let copyUserData = [...props.userData];
 

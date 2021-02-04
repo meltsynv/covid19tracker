@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet, ColorPropType } from "react-native";
-import Icons from "react-native-vector-icons/Ionicons";
+import { View, Image, StyleSheet } from "react-native";
 import { COLORS } from "../styles/colors";
 
 const ShopTinyCard = ({ imgPath }) => (

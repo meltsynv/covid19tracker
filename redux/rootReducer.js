@@ -10,6 +10,9 @@ const initState = {
   loginState: true,
 };
 
+// update the state, action.type desides witch case will be taken
+// the connection is providet with redux (hooks)
+// ...state == copy the whole state, and than update the given update
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
     case "SET_LOGIN":

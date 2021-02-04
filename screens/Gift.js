@@ -18,6 +18,8 @@ const Gift = ({ ...props }) => {
   const [activeShopButton, setShopButton] = useState(true);
   const [activeTinyShopSection, setTinyShopSection] = useState(false);
 
+  // toggle the actzive state of the Gift card
+  // same logic is implementet in Home screen
   const toggleActiveCard = (key) => {
     let copyshopData = [...props.shopData];
     let copyUserData = [...props.userData];
@@ -42,6 +44,7 @@ const Gift = ({ ...props }) => {
     toggleShopCard();
   };
 
+  // if item is selected show button and the tiny summery bar with active gifts
   const toggleShopCard = () => {
     let counter = 0;
     props.shopData.map((data) => {
@@ -59,6 +62,7 @@ const Gift = ({ ...props }) => {
     }
   };
 
+  // reset the current selected items and bring the state to the previous version
   const resetCards = () => {
     let copyshopData = [...props.shopData];
     let copyUserData = [...props.userData];
@@ -77,8 +81,6 @@ const Gift = ({ ...props }) => {
       copyUserData[0].shopCredits += copyshopData[index].creditsNumber;
     });
 
-    // console.log(array);
-    // console.log(props.shopData);
     props.setUserData(copyUserData);
     props.setshopData(copyshopData);
 
