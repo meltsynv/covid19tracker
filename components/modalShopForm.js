@@ -22,20 +22,6 @@ const ModalShopForm = ({ active, ...props }) => {
     setModalVisible(!isModalVisible);
   };
 
-  const alertMessage = () => {
-    Alert.alert(
-      "Bestätigung",
-      "Ihre Bestellung ist unterwegs, bleiben Sie gesund!",
-      [
-        {
-          text: "Ok",
-        },
-      ]
-    );
-
-    toggleModal();
-  };
-
   const rendershopCards = () =>
     props.shopData
       .filter((data) => data.isActive == true)
@@ -149,8 +135,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalShopForm);
+export default connect(mapStateToProps, null)(ModalShopForm);

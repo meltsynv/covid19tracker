@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.primaryColor,
     borderRadius: 5,
     padding: 5,
-    width: Dimensions.get("window").width / 2 - 30,
+    width: Dimensions.get("window").width / 2 - 30, //used for two column layout with padding between
     marginBottom: 15,
   },
   goalsImageWrapper: {

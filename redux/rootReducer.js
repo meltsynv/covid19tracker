@@ -7,7 +7,7 @@ const initState = {
   goalsData: goalsData.data,
   shopData: shopData.data,
   goalsDataActiveNumber: 0,
-  loginState: true,
+  loginState: true, //switch between login screens and main App
 };
 
 // update the state, action.type desides witch case will be taken

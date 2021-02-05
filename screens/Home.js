@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, TextInput, Text } from "react-native";
+import { View, Text } from "react-native";
+import SearchInput from "react-native-search-filter";
 import {
   ScrollView,
   TouchableNativeFeedback,
@@ -9,40 +10,28 @@ import Icons from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../styles/colors";
 import styles from "../styles/globalStyle";
 import API from "../backend/API";
+import Cities from "../backend/de.json";
 
 // components
 import GoalsCard from "../components/goalsCard";
 import LinkCard from "../components/linkCard";
 import ApiCard from "../components/apiCard";
-import ErrorMessage from "../components/errorMessage";
 
 const Home = ({ ...props }) => {
   //local state datas
   const [searchText, onChangeSearchText] = React.useState("");
   const [jsonAPIdata, setAPIdata] = React.useState([]);
-  const [isAPICardActive, setAPICardActive] = React.useState(false);
-  const [flasMessage, setMessage] = React.useState(false);
+  const [hasdata, setHasData] = React.useState(false);
 
-  // api call to fetch the data, and print a error message
-  // if the jsondata is empty
-  const APIcall = () => {
-    API(searchText).then(function (jsonData) {
+  // api call to fetch the data,
+  const APIcall = (text) => {
+    API(text).then(function (jsonData) {
       let data = [];
       setAPIdata((data = jsonData));
     });
 
-    if (searchText.length > 0) {
-      setAPICardActive(true);
-    } else {
-      setAPICardActive(false);
-    }
-
-    if (jsonAPIdata == null) {
-      setMessage(true);
-      setTimeout(() => {
-        setMessage(false);
-      }, 3700);
-    }
+    setHasData(true);
+    onChangeSearchText("");
   };
 
   // count all active cards an set the Sumnumber
@@ -94,122 +83,127 @@ const Home = ({ ...props }) => {
       </TouchableNativeFeedback>
     ));
 
-  // if city is not given, render message to put i an city
-  // if city or jsonData is given render the ApiCards
-  const renderAPICards = () => {
-    if (
-      isAPICardActive &&
-      searchText.length > 0 &&
-      jsonAPIdata instanceof Object
-    ) {
-      return (
-        <>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingTop: 20,
-              paddingBottom: 20,
-            }}
-          >
-            <Text style={styles.subHeadterTitle}>{jsonAPIdata.name}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-            }}
-          >
-            <ApiCard title="Cases" value={jsonAPIdata.cases} />
-            <ApiCard title="Deaths" value={jsonAPIdata.deaths} />
-            <ApiCard title="last 7 days" value={jsonAPIdata.cases7_p_1} />
-            <ApiCard title="Population" value={Number(jsonAPIdata.ewz)} />
-            <ApiCard
-              title="Cases / Population"
-              value={Number(jsonAPIdata.cases_per_population).toFixed(2) + "%"}
-            />
-            <ApiCard
-              title="Death rate"
-              value={Number(jsonAPIdata.death_rate).toFixed(2) + "%"}
-            />
-          </View>
-        </>
-      );
-    } else {
-      return (
-        <View
-          style={{
-            justifyContent: "center",
-            alignSelf: "center",
-            marginTop: 30,
-          }}
-        >
-          <Text style={styles.title}>Bitte gib deine Stadt ein!</Text>
-        </View>
-      );
-    }
-  };
+  const renderAPICards = () => (
+    <>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingTop: 20,
+          paddingBottom: 20,
+        }}
+      >
+        <Text style={styles.subHeadterTitle}>{jsonAPIdata.name}</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
+        <ApiCard title="Cases" value={jsonAPIdata.cases} />
+        <ApiCard title="Deaths" value={jsonAPIdata.deaths} />
+        <ApiCard title="last 7 days" value={jsonAPIdata.cases7_p_1} />
+        <ApiCard title="Population" value={Number(jsonAPIdata.ewz)} />
+        <ApiCard
+          title="Cases / Population"
+          value={Number(jsonAPIdata.cases_per_population).toFixed(2) + "%"}
+        />
+        <ApiCard
+          title="Death rate"
+          value={Number(jsonAPIdata.death_rate).toFixed(2) + "%"}
+        />
+      </View>
+    </>
+  );
 
   return (
-    <>
-      {flasMessage ? (
-        <ErrorMessage
-          message=" Bitte eine gültige Stadt eingeben!"
-          description="Deine Suchanfrage hat leider keine Ergebnisse geliefert, probiere es noch einmal!"
+    <ScrollView style={styles.container}>
+      <View style={styles.textInputWrapper}>
+        <SearchInput
+          onChangeText={(term) => {
+            onChangeSearchText(term);
+          }}
+          placeholder="Maxmustermannstadt..."
         />
-      ) : null}
-      <ScrollView style={styles.container}>
-        <View style={styles.textInputWrapper}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="deine Stadt eingeben:.."
-            placeholderTextColor={COLORS.secondaryColor}
-            onChangeText={(text) => onChangeSearchText(text)}
-          />
-          <TouchableNativeFeedback
-            style={{ backgroundColor: COLORS.bgColor }}
-            onPress={APIcall}
-          >
-            <Icons
-              name="search"
-              size={16}
-              color={COLORS.primaryColor}
-              style={{ padding: 20 }}
-            />
-          </TouchableNativeFeedback>
-        </View>
-        {renderAPICards()}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingTop: 20,
-            paddingBottom: 20,
-          }}
-        >
-          <Text style={styles.subHeadterTitle}>Heutige Ziele</Text>
-          <Text style={styles.subHeadterTitle}>
-            {props.goalsDataActiveNumber} von {props.goalsData.length}
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
-        >
-          {renderGoalsCards()}
-        </View>
-        <View style={{ marginTop: 30, marginBottom: 30 }}>
-          <LinkCard
-            linkTitle="Neue Maßnahmen"
-            linkSource="land.nrw"
-            link="Notification"
+        <View>
+          <Icons
+            name="search"
+            size={16}
+            color={COLORS.primaryColor}
+            style={{ padding: 20 }}
           />
         </View>
-      </ScrollView>
-    </>
+      </View>
+      {searchText.length == 0 ? null : (
+        <ScrollView>
+          {Cities.filter((city) =>
+            String(city.city)
+              .toLowerCase()
+              .includes(String(searchText).toLowerCase())
+          )
+            .slice(0, 7)
+            .map((city) => {
+              return (
+                <TouchableNativeFeedback
+                  onPress={() => alert(city.city)}
+                  key={Math.random(0, 100000)}
+                  onPress={(text = city.city) => APIcall(text)}
+                >
+                  <View
+                    style={{
+                      padding: 10,
+                      borderBottomWidth: 1,
+                      borderBottomColor: COLORS.secondaryColor,
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={{ color: COLORS.primaryColor, fontSize: 14 }}>
+                      {city.city}
+                    </Text>
+                    <Icons
+                      name="locate"
+                      size={14}
+                      color={COLORS.primaryColor}
+                    />
+                  </View>
+                </TouchableNativeFeedback>
+              );
+            })}
+        </ScrollView>
+      )}
+      {hasdata ? renderAPICards() : null}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingTop: 20,
+          paddingBottom: 20,
+        }}
+      >
+        <Text style={styles.subHeadterTitle}>Heutige Ziele</Text>
+        <Text style={styles.subHeadterTitle}>
+          {props.goalsDataActiveNumber} von {props.goalsData.length}
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {renderGoalsCards()}
+      </View>
+      <View style={{ marginTop: 30, marginBottom: 30 }}>
+        <LinkCard
+          linkTitle="Neue Maßnahmen"
+          linkSource="land.nrw"
+          link="Notification"
+        />
+      </View>
+    </ScrollView>
   );
 };
 

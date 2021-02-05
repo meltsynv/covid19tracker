@@ -1,10 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { COLORS } from "../styles/colors";
 import styles from "../styles/globalStyle";
 
-const Datenschutz = ({ navigation }) => {
+const Datenschutz = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={{ marginBottom: 10 }}>

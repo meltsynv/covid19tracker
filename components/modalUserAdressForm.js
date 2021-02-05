@@ -30,6 +30,7 @@ const ModalUserAdressForm = ({ ...props }) => {
     `${props.userData[0].country}`
   );
 
+  // copy the input data to state and update the store
   const handleInput = () => {
     let copyUserData = [...props.userData];
 
