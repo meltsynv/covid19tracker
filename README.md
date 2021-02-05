@@ -4,6 +4,7 @@
 
 **Installation**
 ```
+npm install --global yarn
 git clone https://github.com/meltsynv/covid19tracker.git
 yarn
 yarn start
